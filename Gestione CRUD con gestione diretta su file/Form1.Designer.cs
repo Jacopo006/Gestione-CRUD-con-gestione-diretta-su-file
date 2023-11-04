@@ -95,9 +95,9 @@
             // 
             this.cancella.Location = new System.Drawing.Point(309, 303);
             this.cancella.Name = "cancella";
-            this.cancella.Size = new System.Drawing.Size(78, 76);
+            this.cancella.Size = new System.Drawing.Size(107, 76);
             this.cancella.TabIndex = 5;
-            this.cancella.Text = "CANCELLA LOGICA";
+            this.cancella.Text = "CANCELLAZIONE  LOGICA";
             this.cancella.UseVisualStyleBackColor = true;
             this.cancella.Click += new System.EventHandler(this.cancella_Click);
             // 
@@ -181,11 +181,11 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(393, 303);
+            this.button2.Location = new System.Drawing.Point(422, 303);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 76);
+            this.button2.Size = new System.Drawing.Size(106, 76);
             this.button2.TabIndex = 15;
-            this.button2.Text = "CANCELLA FISICO";
+            this.button2.Text = "CANCELLAZIONE FISICA";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 

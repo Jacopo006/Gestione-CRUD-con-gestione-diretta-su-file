@@ -82,7 +82,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
 
 
-        //cancellazione 
+        //cancellazione logica
         private void cancella_Click(object sender, EventArgs e)
         {
             int indice = ricercaindice(nomexmodifica.Text.ToLower());
@@ -131,30 +131,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
 
         }
-
-        private void cancfisic_Click(object sender, EventArgs e)
-        {
-            int indice = ricercaindice(textBox1.Text);
-            string[] line = File.ReadAllLines("File.dat");
-            for (int i = indice; i < line.Length - 1; i++)
-            {
-                line[i] = line[i + 1];
-            }
-
-            var file = new FileStream("File.dat", FileMode.Truncate, FileAccess.Write, FileShare.Read);
-            StreamWriter sw = new StreamWriter(file);
-            sw.Write(string.Empty);
-            sw.Close();
-
-            var files = new FileStream("File.dat", FileMode.Append, FileAccess.Write, FileShare.Read);
-            StreamWriter sws = new StreamWriter(files);
-            for (int i = 0; i < line.Length - 1; i++)
-            {
-                sws.WriteLine(line[i]);
-            }
-            sws.Close();
-        }
-
+        //cancellazione fisica
         private void button2_Click(object sender, EventArgs e)
         {
             int indice = ricercaindice(textBox1.Text);
