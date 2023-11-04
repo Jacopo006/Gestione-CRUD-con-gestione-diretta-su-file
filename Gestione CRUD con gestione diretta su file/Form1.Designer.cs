@@ -37,27 +37,30 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.prezzoxmodifica = new System.Windows.Forms.TextBox();
+            this.nomexmodifica = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.nomemodificato = new System.Windows.Forms.TextBox();
             this.prezzomodificato = new System.Windows.Forms.TextBox();
             this.modifica = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(307, 12);
+            this.button1.Location = new System.Drawing.Point(265, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(78, 76);
             this.button1.TabIndex = 0;
             this.button1.Text = "AGGIUNGI";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 12);
+            this.label1.Location = new System.Drawing.Point(10, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 13);
             this.label1.TabIndex = 1;
@@ -65,7 +68,7 @@
             // 
             // PREZZO
             // 
-            this.PREZZO.Location = new System.Drawing.Point(8, 68);
+            this.PREZZO.Location = new System.Drawing.Point(13, 68);
             this.PREZZO.Name = "PREZZO";
             this.PREZZO.Size = new System.Drawing.Size(100, 20);
             this.PREZZO.TabIndex = 2;
@@ -74,7 +77,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 52);
+            this.label2.Location = new System.Drawing.Point(10, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(249, 13);
             this.label2.TabIndex = 3;
@@ -82,7 +85,7 @@
             // 
             // NOMEPRODOTTO
             // 
-            this.NOMEPRODOTTO.Location = new System.Drawing.Point(8, 28);
+            this.NOMEPRODOTTO.Location = new System.Drawing.Point(13, 28);
             this.NOMEPRODOTTO.Name = "NOMEPRODOTTO";
             this.NOMEPRODOTTO.Size = new System.Drawing.Size(100, 20);
             this.NOMEPRODOTTO.TabIndex = 4;
@@ -90,25 +93,26 @@
             // 
             // cancella
             // 
-            this.cancella.Location = new System.Drawing.Point(307, 111);
+            this.cancella.Location = new System.Drawing.Point(309, 303);
             this.cancella.Name = "cancella";
             this.cancella.Size = new System.Drawing.Size(78, 76);
             this.cancella.TabIndex = 5;
-            this.cancella.Text = "CANCELLA";
+            this.cancella.Text = "CANCELLA LOGICA";
             this.cancella.UseVisualStyleBackColor = true;
             this.cancella.Click += new System.EventHandler(this.cancella_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(8, 140);
+            this.textBox1.Location = new System.Drawing.Point(9, 319);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 6;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 124);
+            this.label3.Location = new System.Drawing.Point(6, 303);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(286, 13);
             this.label3.TabIndex = 7;
@@ -117,24 +121,24 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(5, 239);
+            this.label4.Location = new System.Drawing.Point(10, 125);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(282, 13);
             this.label4.TabIndex = 8;
             this.label4.Text = "INSERISCI IL NOME DEL PRODOTTO DA MODIFICARE";
             // 
-            // prezzoxmodifica
+            // nomexmodifica
             // 
-            this.prezzoxmodifica.Location = new System.Drawing.Point(8, 255);
-            this.prezzoxmodifica.Name = "prezzoxmodifica";
-            this.prezzoxmodifica.Size = new System.Drawing.Size(100, 20);
-            this.prezzoxmodifica.TabIndex = 9;
-            this.prezzoxmodifica.TextChanged += new System.EventHandler(this.prezzoxmodifica_TextChanged);
+            this.nomexmodifica.Location = new System.Drawing.Point(13, 141);
+            this.nomexmodifica.Name = "nomexmodifica";
+            this.nomexmodifica.Size = new System.Drawing.Size(100, 20);
+            this.nomexmodifica.TabIndex = 9;
+            this.nomexmodifica.TextChanged += new System.EventHandler(this.prezzoxmodifica_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(5, 299);
+            this.label5.Location = new System.Drawing.Point(10, 165);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(237, 13);
             this.label5.TabIndex = 10;
@@ -143,7 +147,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(263, 299);
+            this.label6.Location = new System.Drawing.Point(10, 204);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(161, 13);
             this.label6.TabIndex = 11;
@@ -151,7 +155,7 @@
             // 
             // nomemodificato
             // 
-            this.nomemodificato.Location = new System.Drawing.Point(8, 315);
+            this.nomemodificato.Location = new System.Drawing.Point(13, 181);
             this.nomemodificato.Name = "nomemodificato";
             this.nomemodificato.Size = new System.Drawing.Size(100, 20);
             this.nomemodificato.TabIndex = 12;
@@ -159,7 +163,7 @@
             // 
             // prezzomodificato
             // 
-            this.prezzomodificato.Location = new System.Drawing.Point(266, 315);
+            this.prezzomodificato.Location = new System.Drawing.Point(13, 220);
             this.prezzomodificato.Name = "prezzomodificato";
             this.prezzomodificato.Size = new System.Drawing.Size(100, 20);
             this.prezzomodificato.TabIndex = 13;
@@ -167,25 +171,47 @@
             // 
             // modifica
             // 
-            this.modifica.Location = new System.Drawing.Point(452, 239);
+            this.modifica.Location = new System.Drawing.Point(393, 125);
             this.modifica.Name = "modifica";
-            this.modifica.Size = new System.Drawing.Size(75, 96);
+            this.modifica.Size = new System.Drawing.Size(78, 76);
             this.modifica.TabIndex = 14;
             this.modifica.Text = "MODIFICA";
             this.modifica.UseVisualStyleBackColor = true;
             this.modifica.Click += new System.EventHandler(this.modifica_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(393, 303);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(78, 76);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "CANCELLA FISICO";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(309, 125);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(78, 76);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "RICERCA PRODOTTO";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1039, 551);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.modifica);
             this.Controls.Add(this.prezzomodificato);
             this.Controls.Add(this.nomemodificato);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.prezzoxmodifica);
+            this.Controls.Add(this.nomexmodifica);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
@@ -214,12 +240,14 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox prezzoxmodifica;
+        private System.Windows.Forms.TextBox nomexmodifica;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox nomemodificato;
         private System.Windows.Forms.TextBox prezzomodificato;
         private System.Windows.Forms.Button modifica;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 
