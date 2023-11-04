@@ -24,9 +24,20 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         }
         private void Aggiungi_Click(object sender, EventArgs e)
         {
+            // Apre il file "File.dat" in modalità append (aggiunta), con accesso in scrittura,consentendo la lettura da altri processi.
             var file = new FileStream("File.dat", FileMode.Append, FileAccess.Write, FileShare.Read);
+
+            // Crea un oggetto StreamWriter per scrivere nel file aperto.
             StreamWriter sw = new StreamWriter(file);
+
+            // Scrive una riga di dati nel file:
+            // - {NOMEPRODOTTO.Text} e {PREZZO.Text} sono i valori dai campi di testo dell'interfaccia utente.
+            // - "1;0;" sono valori fissi.
+            // - .PadRight(record - 4) aggiunge spazi vuoti per raggiungere una lunghezza totale di "record - 4".
+            // - "##" è un delimitatore alla fine della riga.
             sw.WriteLine($"{NOMEPRODOTTO.Text};{PREZZO.Text};1;0;".PadRight(record - 4) + "##");
+
+            // Chiude il file e il StreamWriter per rilasciare le risorse.
             sw.Close();
         }
 
@@ -36,6 +47,94 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         }
 
         private void PREZZO_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+        public int ricercaindice(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.dat"))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    if (dati[3] == "0" && dati[0] == nome)
+                    {
+                        sr.Close();
+                        return riga;
+                    }
+                    riga++;
+                }
+            }
+            return -1;
+        }
+        public string[] ricercaprod(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.dat"))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    if (dati[3] == "0" && dati[0] == nome)
+                    {
+                        sr.Close();
+                        return dati;
+                    }
+                    riga++;
+                }
+            }
+            return null;
+        }
+        private void cancella_Click(object sender, EventArgs e)
+        {
+            int indice = ricercaindice(proddacanclogic.Text);
+            string[] prodotto = ricercaprod(proddacanclogic.Text);
+            string line;
+            var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
+            BinaryWriter writer = new BinaryWriter(file);
+            file.Seek(record * indice, SeekOrigin.Begin);
+            line = $"{prodotto[0]};{prodotto[1]};{prodotto[3]};1;".PadRight(record - 4) + "##";
+            byte[] bytes = Encoding.UTF8.GetBytes(line);
+            writer.Write(bytes, 0, bytes.Length);
+            writer.Close();
+            file.Close();
+        }
+
+        private void modifica_Click(object sender, EventArgs e)
+        {
+            int indice = ricercaindice(prezzoxmodifica.Text);
+            string line;
+            var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
+            BinaryWriter writer = new BinaryWriter(file);
+            file.Seek(record * indice, SeekOrigin.Begin);
+            line = $"{nomemodificato.Text};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
+            byte[] bytes = Encoding.UTF8.GetBytes(line);
+            writer.Write(bytes, 0, bytes.Length);
+            writer.Close();
+            file.Close();
+        }
+
+        private void prezzoxmodifica_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nomemodificato_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void prezzomodificato_TextChanged(object sender, EventArgs e)
         {
 
         }
