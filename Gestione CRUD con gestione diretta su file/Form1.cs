@@ -22,44 +22,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
 
         }
-        public int ricercaindice(string nome)
-        {
-            int riga = 0;
-            using (StreamReader sr = File.OpenText("File.dat"))
-            {
-                string linea;
-                while ((linea = sr.ReadLine()) != null)
-                {
-                    string[] prodotti = linea.Split(';');
-                    if (prodotti[3] == "0" && prodotti[0].Equals(nome))
-                    {
-                        sr.Close();
-                        return riga;
-                    }
-                    riga++;
-                }
-            }
-            return -1;
-        }
-        public string[] ricercaprod(string nome)
-        {
-            int riga = 0;
-            using (StreamReader sr = File.OpenText("File.dat"))
-            {
-                string linea;
-                while ((linea = sr.ReadLine()) != null)
-                {
-                    string[] prodotti = linea.Split(';');
-                    if (prodotti[3] == "0" && prodotti[0] == nome)
-                    {
-                        sr.Close();
-                        return prodotti;
-                    }
-                    riga++;
-                }
-            }
-            return null;
-        }
         //cancellazione logica
         private void cancella_Click(object sender, EventArgs e)
         {
@@ -68,7 +30,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 {
                     string[] prodotto = ricercaprod(textBox1.Text);
                     string linea;
-                    var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
+                    var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
                     BinaryWriter writer = new BinaryWriter(file);
                     file.Seek(record * indice, SeekOrigin.Begin);
                     linea = $"{prodotto[0]};{prodotto[1]};{prodotto[3]};1;".PadRight(record - 4) + "##";
@@ -95,7 +57,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 // Verifica se l'indice è valido
                
                     string linea;
-                    var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
+                    var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
                     BinaryWriter writer = new BinaryWriter(file);
                     file.Seek(record * indice, SeekOrigin.Begin);
                     linea = $"{nomemodificato.Text.ToLower()};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
@@ -116,18 +78,18 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
             int indice = ricercaindice(textBox2.Text);
 
-            string[] linea = File.ReadAllLines("File.dat");
+            string[] linea = File.ReadAllLines("File.txt");
             for (int i = indice; i < linea.Length - 1; i++)
             {
                 linea[i] = linea[i + 1];
             }
 
-            var file = new FileStream("File.dat", FileMode.Truncate, FileAccess.Write, FileShare.Read);
+            var file = new FileStream("File.txt", FileMode.Truncate, FileAccess.Write, FileShare.Read);
             StreamWriter sw = new StreamWriter(file);
             sw.Write(string.Empty);
             sw.Close();
 
-            var files = new FileStream("File.dat", FileMode.Append, FileAccess.Write, FileShare.Read);
+            var files = new FileStream("File.txt", FileMode.Append, FileAccess.Write, FileShare.Read);
             StreamWriter sws = new StreamWriter(files);
             for (int i = 0; i < linea.Length - 1; i++)
             {
@@ -139,17 +101,56 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Apre il file "File.dat" in modalità append (aggiunta), con accesso in scrittura,consentendo la lettura da altri processi.
-            var file = new FileStream("File.dat", FileMode.Append, FileAccess.Write, FileShare.Read);
+            // Apre il file "File.txt" in modalità append (aggiunta), con accesso in scrittura,consentendo la lettura da altri processi.
+            var file = new FileStream("File.txt", FileMode.Append, FileAccess.Write, FileShare.Read);
 
             // Crea un oggetto StreamWriter per scrivere nel file aperto.
             using (StreamWriter sw = new StreamWriter(file))
             {
-                sw.WriteLine($"{NOMEPRODOTTO.Text};{PREZZO.Text};1;0;".PadRight(record - 4) + "##");//to lower ti scrive in minuscolo
+                sw.WriteLine($"{NOMEPRODOTTO.Text};{PREZZO.Text};1;0;".PadRight(record - 4) + "##");
 
                 // Chiude il file e il StreamWriter per rilasciare le risorse.
                 sw.Close();
             }
+        }
+
+        public int ricercaindice(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.txt"))
+            {
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
+                {
+                    string[] prodotti = linea.Split(';');
+                    if (prodotti[3] == "0" && prodotti[0].Equals(nome))
+                    {
+                        sr.Close();
+                        return riga;
+                    }
+                    riga++;
+                }
+            }
+            return -1;
+        }
+        public string[] ricercaprod(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.txt"))
+            {
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
+                {
+                    string[] prodotti = linea.Split(';');
+                    if (prodotti[3] == "0" && prodotti[0] == nome)
+                    {
+                        sr.Close();
+                        return prodotti;
+                    }
+                    riga++;
+                }
+            }
+            return null;
         }
 
 
