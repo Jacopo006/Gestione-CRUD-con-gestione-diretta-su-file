@@ -27,11 +27,11 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             int riga = 0;
             using (StreamReader sr = File.OpenText("File.dat"))
             {
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
                 {
-                    string[] dati = line.Split(';');
-                    if (dati[3] == "0" && dati[0].Equals(nome))
+                    string[] prodotti = linea.Split(';');
+                    if (prodotti[3] == "0" && prodotti[0].Equals(nome))
                     {
                         sr.Close();
                         return riga;
@@ -46,14 +46,14 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             int riga = 0;
             using (StreamReader sr = File.OpenText("File.dat"))
             {
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
                 {
-                    string[] dati = line.Split(';');
-                    if (dati[3] == "0" && dati[0] == nome)
+                    string[] prodotti = linea.Split(';');
+                    if (prodotti[3] == "0" && prodotti[0] == nome)
                     {
                         sr.Close();
-                        return dati;
+                        return prodotti;
                     }
                     riga++;
                 }
@@ -63,16 +63,16 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         //cancellazione logica
         private void cancella_Click(object sender, EventArgs e)
         {
-                int indice = ricercaindice(nomexmodifica.Text);
+                int indice = ricercaindice(textBox1.Text);
                 if (indice != -1)
                 {
-                    string[] prodotto = ricercaprod(nomexmodifica.Text);
-                    string line;
+                    string[] prodotto = ricercaprod(textBox1.Text);
+                    string linea;
                     var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
                     BinaryWriter writer = new BinaryWriter(file);
                     file.Seek(record * indice, SeekOrigin.Begin);
-                    line = $"{prodotto[0]};{prodotto[1]};{prodotto[3]};1;".PadRight(record - 4) + "##";
-                    byte[] bytes = Encoding.UTF8.GetBytes(line);
+                    linea = $"{prodotto[0]};{prodotto[1]};{prodotto[3]};1;".PadRight(record - 4) + "##";
+                    byte[] bytes = Encoding.UTF8.GetBytes(linea);
                     writer.Write(bytes, 0, bytes.Length);
                     writer.Close();
                     file.Close();
@@ -85,28 +85,41 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             
 
         }
-
+        //bottone cancella 
         private void modifica_Click(object sender, EventArgs e)
         {
             int indice = ricercaindice(nomexmodifica.Text);
-            string line;
-            var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
-            BinaryWriter writer = new BinaryWriter(file);
-            file.Seek(record * indice, SeekOrigin.Begin);
-            line = $"{nomemodificato.Text.ToLower()};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
-            byte[] bytes = Encoding.UTF8.GetBytes(line);
-            writer.Write(bytes, 0, bytes.Length);
-            writer.Close();
-            file.Close();
+
+            if (indice != -1)
+            {
+                // Verifica se l'indice è valido
+               
+                    string linea;
+                    var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
+                    BinaryWriter writer = new BinaryWriter(file);
+                    file.Seek(record * indice, SeekOrigin.Begin);
+                    linea = $"{nomemodificato.Text.ToLower()};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
+                    byte[] bytes = Encoding.UTF8.GetBytes(linea);
+                    writer.Write(bytes, 0, bytes.Length);
+                    writer.Close();
+                    file.Close();
+            }
+            else
+            {
+                // Gestisci il caso in cui l'elemento da modificare non è stato trovato
+                MessageBox.Show("L'elemento da modificare non è stato trovato.");
+            }
         }
+
         //cancellazione fisica
         private void button2_Click(object sender, EventArgs e)
         {
             int indice = ricercaindice(textBox2.Text);
-            string[] line = File.ReadAllLines("File.dat");
-            for (int i = indice; i < line.Length - 1; i++)
+
+            string[] linea = File.ReadAllLines("File.dat");
+            for (int i = indice; i < linea.Length - 1; i++)
             {
-                line[i] = line[i + 1];
+                linea[i] = linea[i + 1];
             }
 
             var file = new FileStream("File.dat", FileMode.Truncate, FileAccess.Write, FileShare.Read);
@@ -116,9 +129,9 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
             var files = new FileStream("File.dat", FileMode.Append, FileAccess.Write, FileShare.Read);
             StreamWriter sws = new StreamWriter(files);
-            for (int i = 0; i < line.Length - 1; i++)
+            for (int i = 0; i < linea.Length - 1; i++)
             {
-                sws.WriteLine(line[i]);
+                sws.WriteLine(linea[i]);
             }
             sws.Close();
         }
@@ -138,20 +151,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 sw.Close();
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
