@@ -96,7 +96,7 @@
             // 
             this.cancella.Location = new System.Drawing.Point(309, 303);
             this.cancella.Name = "cancella";
-            this.cancella.Size = new System.Drawing.Size(107, 76);
+            this.cancella.Size = new System.Drawing.Size(106, 93);
             this.cancella.TabIndex = 5;
             this.cancella.Text = "CANCELLAZIONE  LOGICA";
             this.cancella.UseVisualStyleBackColor = true;
@@ -172,9 +172,9 @@
             // 
             // modifica
             // 
-            this.modifica.Location = new System.Drawing.Point(393, 125);
+            this.modifica.Location = new System.Drawing.Point(298, 125);
             this.modifica.Name = "modifica";
-            this.modifica.Size = new System.Drawing.Size(78, 76);
+            this.modifica.Size = new System.Drawing.Size(94, 115);
             this.modifica.TabIndex = 14;
             this.modifica.Text = "MODIFICA";
             this.modifica.UseVisualStyleBackColor = true;
