@@ -44,6 +44,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                     // Gestisci il caso in cui l'elemento non è stato trovato
                     MessageBox.Show("L'elemento da cancellare non è stato trovato.");
                 }
+                //correzione
             
 
         }
