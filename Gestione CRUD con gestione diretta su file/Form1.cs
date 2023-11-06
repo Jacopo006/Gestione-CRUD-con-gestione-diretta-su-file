@@ -17,7 +17,9 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
             InitializeComponent();
         }
+
         int record = 64;
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -44,11 +46,9 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                     // Gestisci il caso in cui l'elemento non è stato trovato
                     MessageBox.Show("L'elemento da cancellare non è stato trovato.");
                 }
-                //correzione
-            
-
         }
-        //bottone cancella 
+
+        //bottone modifica
         private void modifica_Click(object sender, EventArgs e)
         {
             int indice = ricercaindice(nomexmodifica.Text);
@@ -61,7 +61,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                     var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
                     BinaryWriter writer = new BinaryWriter(file);
                     file.Seek(record * indice, SeekOrigin.Begin);
-                    linea = $"{nomemodificato.Text.ToLower()};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
+                    linea = $"{nomemodificato.Text};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
                     byte[] bytes = Encoding.UTF8.GetBytes(linea);
                     writer.Write(bytes, 0, bytes.Length);
                     writer.Close();
