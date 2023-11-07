@@ -24,6 +24,13 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
 
         }
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //cancellazione logica
         private void cancella_Click(object sender, EventArgs e)
         {
@@ -102,20 +109,25 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Apre il file "File.txt" in modalità append (aggiunta), con accesso in scrittura,consentendo la lettura da altri processi.
-            var file = new FileStream("File.txt", FileMode.Append, FileAccess.Write, FileShare.Read);
-
-            // Crea un oggetto StreamWriter per scrivere nel file aperto.
-            using (StreamWriter sw = new StreamWriter(file))
+            if (NOMEPRODOTTO.Text == string.Empty || PREZZO.Text == string.Empty)
             {
+                MessageBox.Show("Devi prima inserire un prodotto e il suo prezzo");
+            }
+            else if (float.TryParse(PREZZO.Text, out _) == false)
+            {
+                MessageBox.Show("Devi inserire il prezzo in valore numerico");
+                PREZZO.Text = string.Empty;
+            }
+            else
+            {
+                var file = new FileStream("File.dat", FileMode.Append, FileAccess.Write, FileShare.Read);
+                StreamWriter sw = new StreamWriter(file);
                 sw.WriteLine($"{NOMEPRODOTTO.Text};{PREZZO.Text};1;0;".PadRight(record - 4) + "##");
-
-                // Chiude il file e il StreamWriter per rilasciare le risorse.
                 sw.Close();
             }
         }
 
-        public int ricercaindice(string nome)
+            public int ricercaindice(string nome)
         {
             int riga = 0;
             using (StreamReader sr = File.OpenText("File.txt"))
@@ -188,5 +200,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
 
         }
+
+        
     }
 }
