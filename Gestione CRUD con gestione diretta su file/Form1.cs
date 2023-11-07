@@ -103,25 +103,27 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         private void modifica_Click(object sender, EventArgs e)
         {
             int indice = ricercaindice(nomexmodifica.Text);
-
-            if (indice != -1)
+            if (nomexmodifica.Text == string.Empty)
+            {
+                MessageBox.Show("Inserisci un elemento da modificare");
+            }
+            else if (indice == -1)
+            {
+                MessageBox.Show("L'elemento da modificare non è stato trovato.");
+            }
+            else 
             {
                 // Verifica se l'indice è valido
-               
-                    string linea;
-                    var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
-                    BinaryWriter writer = new BinaryWriter(file);
-                    file.Seek(record * indice, SeekOrigin.Begin);
-                    linea = $"{nomemodificato.Text};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
-                    byte[] bytes = Encoding.UTF8.GetBytes(linea);
-                    writer.Write(bytes, 0, bytes.Length);
-                    writer.Close();
-                    file.Close();
-            }
-            else
-            {
-                // Gestisci il caso in cui l'elemento da modificare non è stato trovato
-                MessageBox.Show("L'elemento da modificare non è stato trovato.");
+
+                string linea;
+                var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
+                BinaryWriter writer = new BinaryWriter(file);
+                file.Seek(record * indice, SeekOrigin.Begin);
+                linea = $"{nomemodificato.Text};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
+                byte[] bytes = Encoding.UTF8.GetBytes(linea);
+                writer.Write(bytes, 0, bytes.Length);
+                writer.Close();
+                file.Close();
             }
         }
 
