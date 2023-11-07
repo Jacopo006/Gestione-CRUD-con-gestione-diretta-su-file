@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,6 +33,10 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         private void button3_Click(object sender, EventArgs e)
         {
 
+            // trova il percorso del file
+            string percorsoFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "File.txt");
+            // apre il file
+            Process.Start(percorsoFile);
         }
 
         //cancellazione fisica
@@ -142,7 +148,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             }
             else
             {
-                var file = new FileStream("File.dat", FileMode.Append, FileAccess.Write, FileShare.Read);
+                var file = new FileStream("File.txt", FileMode.Append, FileAccess.Write, FileShare.Read);
                 StreamWriter sw = new StreamWriter(file);
                 sw.WriteLine($"{NOMEPRODOTTO.Text};{PREZZO.Text};1;0;".PadRight(record - 4) + "##");
                 sw.Close();
