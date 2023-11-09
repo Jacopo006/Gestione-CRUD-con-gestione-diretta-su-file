@@ -196,6 +196,79 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
 
 
+        public string[] ricercaproddarecu(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.dat"))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    if (dati[3] == "1" && dati[0] == nome)
+                    {
+                        sr.Close();
+                        return dati;
+                    }
+                    riga++;
+                }
+            }
+            return null;
+        }
+        public int ricercaindicedarecu(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.dat"))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    if (dati[3] == "1" && dati[0] == nome)
+                    {
+                        sr.Close();
+                        return riga;
+                    }
+                    riga++;
+                }
+            }
+            return -1;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (textBox3.Text == string.Empty)
+            {
+                MessageBox.Show("Devi prima inserire un prodotto");
+            }
+            else
+            {
+                int indice = ricercaindicedarecu(textBox3.Text);
+                if (indice == -1)
+                {
+                    MessageBox.Show("Assicurati che il prodotto esista e che sia cancellato");
+                    textBox3.Text = null;
+                }
+                else
+                {
+                    string[] prodotto = ricercaproddarecu(textBox3.Text);
+                    string line;
+                    var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
+                    BinaryWriter writer = new BinaryWriter(file);
+                    file.Seek(record * indice, SeekOrigin.Begin);
+                    line = $"{prodotto[0]};{prodotto[1]};1;0;".PadRight(record - 4) + "##";
+                    byte[] bytes = Encoding.UTF8.GetBytes(line);
+
+
+                    writer.Write(bytes, 0, bytes.Length);
+                    writer.Close();
+                    file.Close();
+                    textBox3.Text = null;
+                    MessageBox.Show("Prodotto Recuperato Correttamente");
+                }
+            }
+        }
+
 
         private void NOMEPRODOTTO_TextChanged(object sender, EventArgs e)
         {
@@ -229,6 +302,12 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
         }
 
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         
+        }
     }
-}
+
