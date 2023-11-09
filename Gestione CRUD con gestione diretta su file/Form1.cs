@@ -195,46 +195,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         }
 
 
-
-        public string[] ricercaproddarecu(string nome)
-        {
-            int riga = 0;
-            using (StreamReader sr = File.OpenText("File.dat"))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    string[] dati = line.Split(';');
-                    if (dati[3] == "1" && dati[0] == nome)
-                    {
-                        sr.Close();
-                        return dati;
-                    }
-                    riga++;
-                }
-            }
-            return null;
-        }
-        public int ricercaindicedarecu(string nome)
-        {
-            int riga = 0;
-            using (StreamReader sr = File.OpenText("File.dat"))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    string[] dati = line.Split(';');
-                    if (dati[3] == "1" && dati[0] == nome)
-                    {
-                        sr.Close();
-                        return riga;
-                    }
-                    riga++;
-                }
-            }
-            return -1;
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             if (textBox3.Text == string.Empty)
@@ -269,6 +229,45 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             }
         }
 
+
+        public string[] ricercaproddarecu(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.txt"))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    if (dati[3] == "1" && dati[0] == nome)
+                    {
+                        sr.Close();
+                        return dati;
+                    }
+                    riga++;
+                }
+            }
+            return null;
+        }
+        public int ricercaindicedarecu(string nome)
+        {
+            int riga = 0;
+            using (StreamReader sr = File.OpenText("File.txt"))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] dati = line.Split(';');
+                    if (dati[3] == "1" && dati[0] == nome)
+                    {
+                        sr.Close();
+                        return riga;
+                    }
+                    riga++;
+                }
+            }
+            return -1;
+        }
 
         private void NOMEPRODOTTO_TextChanged(object sender, EventArgs e)
         {
