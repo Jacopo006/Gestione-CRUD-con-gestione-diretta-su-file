@@ -23,6 +23,8 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         }
 
         int record = 64;
+        public string filePath = "File.txt";
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -197,35 +199,23 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox3.Text == string.Empty)
+            if (ricercaindicedarecu(textBox3.Text) == -1)
             {
-                MessageBox.Show("Devi prima inserire un prodotto");
+                MessageBox.Show("Il prodotto non è stato trovato, assicurati che sia presente all'interno del file");
             }
             else
             {
-                int indice = ricercaindicedarecu(textBox3.Text);
-                if (indice == -1)
-                {
-                    MessageBox.Show("Assicurati che il prodotto esista e che sia cancellato");
-                    textBox3.Text = null;
-                }
-                else
-                {
-                    string[] prodotto = ricercaproddarecu(textBox3.Text);
-                    string line;
-                    var file = new FileStream("File.dat", FileMode.Open, FileAccess.Write);
-                    BinaryWriter writer = new BinaryWriter(file);
-                    file.Seek(record * indice, SeekOrigin.Begin);
-                    line = $"{prodotto[0]};{prodotto[1]};1;0;".PadRight(record - 4) + "##";
-                    byte[] bytes = Encoding.UTF8.GetBytes(line);
-
-
-                    writer.Write(bytes, 0, bytes.Length);
-                    writer.Close();
-                    file.Close();
-                    textBox3.Text = null;
-                    MessageBox.Show("Prodotto Recuperato Correttamente");
-                }
+                int indice = (ricercaindicedarecu(textBox3.Text));
+                string[] prodotto = ricercaproddarecu(textBox3.Text);
+                string line;
+                var file = new FileStream(filePath, FileMode.Open, FileAccess.Write);
+                BinaryWriter writer = new BinaryWriter(file);
+                file.Seek(record * indice, SeekOrigin.Begin);
+                line = $"{prodotto[0]};{prodotto[1]};1;0;".PadRight(record - 4) + "##";
+                byte[] bytes = Encoding.UTF8.GetBytes(line);
+                writer.Write(bytes, 0, bytes.Length);
+                writer.Close();
+                file.Close();
             }
         }
 
