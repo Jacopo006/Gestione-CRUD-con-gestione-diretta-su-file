@@ -98,7 +98,7 @@
             // 
             // cancella
             // 
-            this.cancella.Location = new System.Drawing.Point(308, 301);
+            this.cancella.Location = new System.Drawing.Point(308, 265);
             this.cancella.Name = "cancella";
             this.cancella.Size = new System.Drawing.Size(116, 36);
             this.cancella.TabIndex = 5;
@@ -108,7 +108,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 317);
+            this.textBox1.Location = new System.Drawing.Point(12, 281);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 6;
@@ -117,7 +117,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 301);
+            this.label3.Location = new System.Drawing.Point(11, 265);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(286, 13);
             this.label3.TabIndex = 7;
@@ -186,7 +186,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(308, 343);
+            this.button2.Location = new System.Drawing.Point(308, 307);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(116, 36);
             this.button2.TabIndex = 15;
@@ -196,7 +196,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 359);
+            this.textBox2.Location = new System.Drawing.Point(12, 323);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 17;
@@ -205,7 +205,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 340);
+            this.label7.Location = new System.Drawing.Point(9, 304);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(286, 13);
             this.label7.TabIndex = 18;
@@ -223,9 +223,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 440);
+            this.button4.Location = new System.Drawing.Point(253, 398);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 76);
+            this.button4.Size = new System.Drawing.Size(171, 36);
             this.button4.TabIndex = 20;
             this.button4.Text = "RECUPERA PRODOTTO";
             this.button4.UseVisualStyleBackColor = true;
