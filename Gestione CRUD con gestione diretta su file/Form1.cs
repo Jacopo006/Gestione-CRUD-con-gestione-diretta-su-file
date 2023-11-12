@@ -30,6 +30,70 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
 
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Verifica se il campo del nome del prodotto o del prezzo è vuoto
+            if (NOMEPRODOTTO.Text == string.Empty || PREZZO.Text == string.Empty)
+            {
+                MessageBox.Show("Devi inserire il nome del prodotto e il suo prezzo");
+            }
+            // Verifica se il prezzo è un valore numerico
+            else if (float.TryParse(PREZZO.Text, out _) == false)
+            {
+                MessageBox.Show("Devi inserire il prezzo in valore numerico");
+                PREZZO.Text = string.Empty; // Cancella il campo del prezzo
+            }
+            else
+            {
+                // Booleana per verificare se il prodotto è già presente nel file
+                bool prodottoEsistente = false;
+
+                // Leggi tutte le righe dal file
+                string[] righeEsistenti = File.ReadAllLines("File.txt");
+
+                // Itera su ogni riga per verificare se il prodotto è già presente
+                for (int i = 0; i < righeEsistenti.Length; i++)
+                {
+                    // Suddividi la riga nei suoi componenti utilizzando il punto e virgola come separatore
+                    string[] parti = righeEsistenti[i].Split(';');
+
+                    // Verifica che la riga abbia almeno due parti e che il nome del prodotto corrisponda
+                    if (parti.Length >= 2 && parti[0] == NOMEPRODOTTO.Text)
+                    {
+                        // Il prodotto con lo stesso nome è già presente
+                        // Incrementa il contatore della quantità
+                        int quantita = int.Parse(parti[2]) + 1;
+
+                        // Aggiorna la riga con la nuova quantità
+                        righeEsistenti[i] = $"{NOMEPRODOTTO.Text};{PREZZO.Text};{quantita};0;";
+
+                        // Imposta la booleana a true per indicare che il prodotto esiste
+                        prodottoEsistente = true;
+
+                        // Esci dal ciclo, poiché abbiamo trovato il prodotto
+                        break;
+                    }
+                }
+
+                // Se il prodotto è già presente, aggiorna il file con le nuove informazioni
+                if (prodottoEsistente)
+                {
+                    File.WriteAllLines("File.txt", righeEsistenti);
+                }
+                else
+                {
+                    // Se il prodotto non esiste, aggiungi una nuova riga al file
+                    // Apri un FileStream in modalità Append per scrivere su "File.txt"
+                    using (var file = new FileStream("File.txt", FileMode.Append, FileAccess.Write, FileShare.Read))
+                    using (StreamWriter sw = new StreamWriter(file))
+                    {
+                        // Aggiungi una nuova riga per il prodotto
+                        sw.WriteLine($"{NOMEPRODOTTO.Text};{PREZZO.Text};1;0;".PadRight(record - 4) + "##");
+                    }
+                }
+            }
+        }
+
 
 
         private void button3_Click(object sender, EventArgs e)
@@ -121,18 +185,21 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         private void modifica_Click(object sender, EventArgs e)
         {
             int indice = ricercaindice(nomexmodifica.Text);
-            if (nomexmodifica.Text == string.Empty)
+            if (nomexmodifica.Text == string.Empty || nomemodificato.Text == string.Empty || prezzomodificato.Text == string.Empty)
             {
-                MessageBox.Show("Inserisci un elemento da modificare");
+                MessageBox.Show("Inserisci le modifiche ");
             }
             else if (indice == -1)
             {
                 MessageBox.Show("L'elemento da modificare non è stato trovato.");
             }
-            else 
+            else if (float.TryParse(prezzomodificato.Text, out _) == false)
+            {
+                MessageBox.Show("Inserisci un elemento numerico per il prezzo");
+            }
+            else
             {
                 // Verifica se l'indice è valido
-
                 string linea;
                 var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
                 BinaryWriter writer = new BinaryWriter(file);
@@ -144,73 +211,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 file.Close();
             }
         }
-
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Verifica se il campo del nome del prodotto o del prezzo è vuoto
-            if (NOMEPRODOTTO.Text == string.Empty || PREZZO.Text == string.Empty)
-            {
-                MessageBox.Show("Devi inserire il nome del prodotto e il suo prezzo");
-            }
-            // Verifica se il prezzo è un valore numerico
-            else if (float.TryParse(PREZZO.Text, out _) == false)
-            {
-                MessageBox.Show("Devi inserire il prezzo in valore numerico");
-                PREZZO.Text = string.Empty; // Cancella il campo del prezzo
-            }
-            else
-            {
-                // Booleana per verificare se il prodotto è già presente nel file
-                bool prodottoEsistente = false;
-
-                // Leggi tutte le righe dal file
-                string[] righeEsistenti = File.ReadAllLines("File.txt");
-
-                // Itera su ogni riga per verificare se il prodotto è già presente
-                for (int i = 0; i < righeEsistenti.Length; i++)
-                {
-                    // Suddividi la riga nei suoi componenti utilizzando il punto e virgola come separatore
-                    string[] parti = righeEsistenti[i].Split(';');
-
-                    // Verifica che la riga abbia almeno due parti e che il nome del prodotto corrisponda
-                    if (parti.Length >= 2 && parti[0] == NOMEPRODOTTO.Text)
-                    {
-                        // Il prodotto con lo stesso nome è già presente
-                        // Incrementa il contatore della quantità
-                        int quantita = int.Parse(parti[2]) + 1;
-
-                        // Aggiorna la riga con la nuova quantità
-                        righeEsistenti[i] = $"{NOMEPRODOTTO.Text};{PREZZO.Text};{quantita};0;";
-
-                        // Imposta la booleana a true per indicare che il prodotto esiste
-                        prodottoEsistente = true;
-
-                        // Esci dal ciclo, poiché abbiamo trovato il prodotto
-                        break;
-                    }
-                }
-
-                // Se il prodotto è già presente, aggiorna il file con le nuove informazioni
-                if (prodottoEsistente)
-                {
-                    File.WriteAllLines("File.txt", righeEsistenti);
-                }
-                else
-                {
-                    // Se il prodotto non esiste, aggiungi una nuova riga al file
-                    // Apri un FileStream in modalità Append per scrivere su "File.txt"
-                    using (var file = new FileStream("File.txt", FileMode.Append, FileAccess.Write, FileShare.Read))
-                    using (StreamWriter sw = new StreamWriter(file))
-                    {
-                        // Aggiungi una nuova riga per il prodotto
-                        sw.WriteLine($"{NOMEPRODOTTO.Text};{PREZZO.Text};1;0;".PadRight(record - 4) + "##");
-                    }
-                }
-            }
-        }
-
 
 
         public int ricercaindice(string nome)
@@ -232,6 +232,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             }
             return -1;
         }
+
         public string[] ricercaprod(string nome)
         {
             int riga = 0;
