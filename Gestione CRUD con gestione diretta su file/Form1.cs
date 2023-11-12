@@ -152,7 +152,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             }
             else
             {
-                // booleana per verificare se il prodotto è già presente nel file
+                // Booleana per verificare se il prodotto è già presente nel file
                 bool prodottoEsistente = false;
 
                 // Leggi tutte le righe dal file
@@ -174,7 +174,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                         // Aggiorna la riga con la nuova quantità
                         righeEsistenti[i] = $"{NOMEPRODOTTO.Text};{PREZZO.Text};{quantita};0;";
 
-                        // Imposta il flag a true per indicare che il prodotto esiste
+                        // Imposta la booleana a true per indicare che il prodotto esiste
                         prodottoEsistente = true;
 
                         // Esci dal ciclo, poiché abbiamo trovato il prodotto
