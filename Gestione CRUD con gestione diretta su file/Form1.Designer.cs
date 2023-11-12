@@ -50,6 +50,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -248,11 +249,22 @@
             this.label8.TabIndex = 22;
             this.label8.Text = "INSERISCI UN PRODOTTO DA RECUPERARE";
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(430, 12);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(77, 76);
+            this.button5.TabIndex = 23;
+            this.button5.Text = "PULISCI FILE";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(989, 649);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button4);
@@ -307,6 +319,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button5;
     }
 }
 

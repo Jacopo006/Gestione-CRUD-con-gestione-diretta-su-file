@@ -41,6 +41,16 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             Process.Start(percorsoFile);
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var file = new FileStream("File.txt", FileMode.Truncate, FileAccess.Write, FileShare.Read);
+            StreamWriter sw = new StreamWriter(file);
+            sw.Write(string.Empty);
+            sw.Close();
+
+
+        }
+
         //cancellazione fisica
         private void button2_Click(object sender, EventArgs e)
         {
@@ -343,6 +353,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         }
 
         
-        }
+    }
     }
 
