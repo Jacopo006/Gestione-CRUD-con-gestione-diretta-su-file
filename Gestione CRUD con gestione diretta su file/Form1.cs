@@ -181,8 +181,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 sws.Close();
             }
 
-        }
-        //cancellazione logica
+        }        //cancellazione logica
         private void cancella_Click(object sender, EventArgs e)
         {
             int x = ricercaindice(textBox1.Text);
@@ -353,7 +352,10 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
         }
 
-        
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
     }
 
