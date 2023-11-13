@@ -21,7 +21,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         {
             InitializeComponent();
         }
-
         int record = 64;
         public string filePath = "File.txt";
 
@@ -96,6 +95,38 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
 
 
+        //bottone modifica
+        private void modifica_Click(object sender, EventArgs e)
+        {
+            int indice = ricercaindice(nomexmodifica.Text);
+            if (nomexmodifica.Text == string.Empty || nomemodificato.Text == string.Empty || prezzomodificato.Text == string.Empty)
+            {
+                MessageBox.Show("Inserisci le modifiche ");
+            }
+            else if (indice == -1)
+            {
+                MessageBox.Show("L'elemento da modificare non è stato trovato.");
+            }
+            else if (float.TryParse(prezzomodificato.Text, out _) == false)
+            {
+                MessageBox.Show("Inserisci un elemento numerico per il prezzo");
+            }
+            else
+            {
+                // Verifica se l'indice è valido
+                string linea;
+                var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
+                BinaryWriter writer = new BinaryWriter(file);
+                file.Seek(record * indice, SeekOrigin.Begin);
+                linea = $"{nomemodificato.Text};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
+                byte[] bytes = Encoding.UTF8.GetBytes(linea);
+                writer.Write(bytes, 0, bytes.Length);
+                writer.Close();
+                file.Close();
+            }
+        }
+
+
         private void button3_Click(object sender, EventArgs e)
         {
 
@@ -151,8 +182,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
             }
 
         }
-
-
         //cancellazione logica
         private void cancella_Click(object sender, EventArgs e)
         {
@@ -172,7 +201,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
                 BinaryWriter writer = new BinaryWriter(file);
                 file.Seek(record * x, SeekOrigin.Begin);
-                linea = $"{prodotto[0]};{prodotto[1]};{prodotto[3]};1;".PadRight(record - 4) + "##";
+                linea = $"{prodotto[0]};{prodotto[1]};0;1;".PadRight(record - 4) + "##";
                 byte[] bytes = Encoding.UTF8.GetBytes(linea);
                 writer.Write(bytes, 0, bytes.Length);
                 writer.Close();
@@ -181,36 +210,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                
         }
 
-        //bottone modifica
-        private void modifica_Click(object sender, EventArgs e)
-        {
-            int indice = ricercaindice(nomexmodifica.Text);
-            if (nomexmodifica.Text == string.Empty || nomemodificato.Text == string.Empty || prezzomodificato.Text == string.Empty)
-            {
-                MessageBox.Show("Inserisci le modifiche ");
-            }
-            else if (indice == -1)
-            {
-                MessageBox.Show("L'elemento da modificare non è stato trovato.");
-            }
-            else if (float.TryParse(prezzomodificato.Text, out _) == false)
-            {
-                MessageBox.Show("Inserisci un elemento numerico per il prezzo");
-            }
-            else
-            {
-                // Verifica se l'indice è valido
-                string linea;
-                var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
-                BinaryWriter writer = new BinaryWriter(file);
-                file.Seek(record * indice, SeekOrigin.Begin);
-                linea = $"{nomemodificato.Text};{prezzomodificato.Text};1;0;".PadRight(record - 4) + "##";
-                byte[] bytes = Encoding.UTF8.GetBytes(linea);
-                writer.Write(bytes, 0, bytes.Length);
-                writer.Close();
-                file.Close();
-            }
-        }
+       
 
 
         public int ricercaindice(string nome)
@@ -356,4 +356,5 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         
     }
     }
+
 
