@@ -23,6 +23,8 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         }
         int record = 64;
         public string filePath = "File.txt";
+        int[] array1 = new int[10000];
+        int[] array2 = new int[10000];
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -64,6 +66,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
 
                         // Aggiorna la riga con la nuova quantità
                         righeEsistenti[i] = $"{NOMEPRODOTTO.Text};{PREZZO.Text};{quantita};0;";
+                        array1[i] = quantita;
 
                         // Imposta la booleana a true per indicare che il prodotto esiste
                         prodottoEsistente = true;
@@ -199,7 +202,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 var file = new FileStream("File.txt", FileMode.Open, FileAccess.Write);
                 BinaryWriter writer = new BinaryWriter(file);
                 file.Seek(record * x, SeekOrigin.Begin);
-                linea = $"{prodotto[0]};{prodotto[1]};0;1;".PadRight(record - 4) + "##";
+                linea = $"{prodotto[0]};{prodotto[1]};{array1[record*x]};1;".PadRight(record - 4) + "##";
                 byte[] bytes = Encoding.UTF8.GetBytes(linea);
                 writer.Write(bytes, 0, bytes.Length);
                 writer.Close();
@@ -266,7 +269,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                 var file = new FileStream(filePath, FileMode.Open, FileAccess.Write);
                 BinaryWriter writer = new BinaryWriter(file);
                 file.Seek(record * indice, SeekOrigin.Begin);
-                line = $"{prodotto[0]};{prodotto[1]};1;0;".PadRight(record - 4) + "##";
+                line = $"{prodotto[0]};{prodotto[1]};{array1[record * indice]};0;".PadRight(record - 4) + "##";
                 byte[] bytes = Encoding.UTF8.GetBytes(line);
                 writer.Write(bytes, 0, bytes.Length);
                 writer.Close();
