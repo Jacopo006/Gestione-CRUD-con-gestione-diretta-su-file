@@ -58,12 +58,12 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                     string[] parti = righeEsistenti[i].Split(';');
 
                     // Verifica che la riga abbia almeno due parti e che il nome del prodotto corrisponda
-                    if (parti.Length >= 2 && parti[0] == NOMEPRODOTTO.Text && parti[1] == PREZZO.Text)
+                    if (parti.Length >= 2 && parti[1] == PREZZO.Text && parti[0] == NOMEPRODOTTO.Text )
                     {
                         // Il prodotto con lo stesso nome è già presente
                         // Incrementa il contatore della quantità
                         int quantita = int.Parse(parti[2]) + 1;
-
+                        
                         // Aggiorna la riga con la nuova quantità
                         righeEsistenti[i] = $"{NOMEPRODOTTO.Text};{PREZZO.Text};{quantita};0;";
                         array1[i] = quantita;
