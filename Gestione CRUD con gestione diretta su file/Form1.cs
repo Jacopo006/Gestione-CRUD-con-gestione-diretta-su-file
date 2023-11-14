@@ -58,7 +58,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                     string[] parti = righeEsistenti[i].Split(';');
 
                     // Verifica che la riga abbia almeno due parti e che il nome del prodotto corrisponda
-                    if (parti.Length >= 2 && parti[0] == NOMEPRODOTTO.Text)
+                    if (parti.Length >= 2 && parti[0] == NOMEPRODOTTO.Text && parti[1] == PREZZO.Text)
                     {
                         // Il prodotto con lo stesso nome è già presente
                         // Incrementa il contatore della quantità
