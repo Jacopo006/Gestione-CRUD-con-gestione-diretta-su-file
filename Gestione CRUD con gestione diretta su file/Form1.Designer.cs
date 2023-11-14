@@ -252,22 +252,24 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(430, 12);
+            this.button5.BackColor = System.Drawing.Color.Crimson;
+            this.button5.Location = new System.Drawing.Point(786, 10);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(77, 76);
+            this.button5.Size = new System.Drawing.Size(89, 76);
             this.button5.TabIndex = 23;
             this.button5.Text = "PULISCI FILE";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(513, 12);
+            this.button6.BackColor = System.Drawing.Color.Crimson;
+            this.button6.Location = new System.Drawing.Point(881, 10);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(89, 76);
             this.button6.TabIndex = 24;
             this.button6.Text = "CHIUDI IL PROGRAMMA";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1

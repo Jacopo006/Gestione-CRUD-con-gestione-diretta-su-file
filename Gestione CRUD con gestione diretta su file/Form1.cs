@@ -24,7 +24,6 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
         int record = 64;
         public string filePath = "File.txt";
 
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
