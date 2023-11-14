@@ -65,7 +65,7 @@ namespace Gestione_CRUD_con_gestione_diretta_su_file
                         int quantita = int.Parse(parti[2]) + 1;
                         
                         // Aggiorna la riga con la nuova quantità
-                        righeEsistenti[i] = $"{NOMEPRODOTTO.Text};{PREZZO.Text};{quantita};0;";
+                        righeEsistenti[i] = $"{NOMEPRODOTTO.Text};{PREZZO.Text};{quantita};0;".PadRight(record - 4) + "##";
                         array1[i] = quantita;
 
                         // Imposta la booleana a true per indicare che il prodotto esiste
